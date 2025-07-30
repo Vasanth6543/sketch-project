@@ -1,35 +1,15 @@
 import cv2
-
-# Read the image
 image = cv2.imread("vasanth.jpg")
-
-# Check if image is loaded successfully
 if image is None:
     print("Image not found.")
     exit()
-
-# Convert to grayscale
 gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-# Invert the grayscale image
 inverted_image = 255 - gray_image
-
-# Apply Gaussian Blur
 blurred = cv2.GaussianBlur(inverted_image, (21, 21), 0)
-
-# Invert the blurred image
 inverted_blurred = 255 - blurred
-
-# Create the pencil sketch
 pencil_sketch = cv2.divide(gray_image, inverted_blurred, scale=256.0)
-
-# Show original and sketch images
 cv2.imshow("Original Image", image)
 cv2.imshow("Pencil Sketch", pencil_sketch)
-
-# Save the output
 cv2.imwrite("sketch_output.jpg", pencil_sketch)
-
-# Wait until a key is pressed and close windows
 cv2.waitKey(0)
 cv2.destroyAllWindows()
